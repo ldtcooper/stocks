@@ -1,0 +1,19 @@
+{
+  "name": "stock_app",
+  "version": "1.0.0",
+  "description": "A D3-based stock app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldtcooper/stocks.git"
+  },
+  "author": " Logan Cooper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ldtcooper/stocks/issues"
+  },
+  "homepage": "https://github.com/ldtcooper/stocks#readme"
+}
