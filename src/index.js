@@ -1,10 +1,10 @@
 import * as d3 from 'd3';
 
 const viz = d3.select("#viz");
-const height = 1100;
-const width = 619;
+const height = 619;
+const width = 1100;
 
-const parser = d3.timeParse("%Y");
+const yearParser = d3.timeParse("%Y");
 
 const x = d3.scaleTime().range([0, width]);
 const y = d3.scaleLinear().range(height, 0);
@@ -28,5 +28,10 @@ const highIncomeLine = d3.line()
 viz.append("g").attr("transform", `translate(0,${height})`);
 
 d3.csv('../data/women_in_gov_clean.csv', (data) => {
-  console.log(data);
+  data.forEach( (d) => {
+    d["Year"] = yearParser(d["Year"]);
+  });
+
+  // viz.append("g").call(d3.axisLeft(y));
+  // viz.append("g").call(d3.axisBottom(x));
 });
