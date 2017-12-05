@@ -1,7 +1,7 @@
 {
-  "name": "stock_app",
+  "name": "women_in_government",
   "version": "1.0.0",
-  "description": "A D3-based stock app",
+  "description": "A visualization of women in government",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
