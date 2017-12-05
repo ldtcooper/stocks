@@ -1,31 +1,37 @@
 import csv
+import json
+
 # [
-#     [Year, Low Income, Lower Middle Income, Upper Middle Income, High Income],
-#     [1998, 11.69237909, 7.780776386, 14.57033282, 16.43385411],
-#     [1999, 11.06176166, 8.032046118, 14.72949398, 17.43285157]
+#     {
+#         "Group": "Low Income",
+#         "Year": 1999,
+#         "Share": 11.9
+#     }
 # ]
 
-def join_all(arr_of_arrs):
-    joined = [];
-    for arr in arr_of_arrs:
-        joined.append(",".join(arr))
-    return "\n".join(joined)
+def format(group, year, share):
+    return {"Group": group, "Year": year, "Share": share}
 
-arranged_data = [['Year', 'Low Income', 'Lower Middle Income', 'Upper Middle Income', 'High Income']]
+arranged_data = []
+index_to_year = {}
 
 with open('women_in_gov.csv', 'rt') as f:
     reader = csv.reader(f)
-    for arr in reader:
-        if arr[0] == "Country Name":
-            for el in range(1, len(arr) - 1):
-                arranged_data.append([arr[el]])
+    row_ind = 0
+    for row in reader:
+        if row_ind == 0:
+            for col in range(1, len(row) - 1):
+                index_to_year[col] = int(row[col])
         else:
-            for el in range(1, len(arr) - 1):
-                if arr[el] == "":
-                    arranged_data[el].append("")
+            group = row[0]
+            for col in range(1, len(row) - 1):
+                year = index_to_year[row_ind]
+                if row[col] == "":
+                    share = None
                 else:
-                    arranged_data[el].append(arr[el])
-    end_data = join_all(arranged_data)
+                    share = float(row[col])
+                arranged_data.append(format(group, year, share))
+        row_ind += 1
 
-with open('women_in_gov_clean.csv', "w") as outfile:
-    outfile.write(end_data)
+with open('women_in_gov_clean.json', "w") as outfile:
+    json.dump(arranged_data, outfile)

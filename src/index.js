@@ -32,6 +32,8 @@ d3.csv('../data/women_in_gov_clean.csv', (data) => {
     d["Year"] = yearParser(d["Year"]);
   });
 
-  // viz.append("g").call(d3.axisLeft(y));
-  // viz.append("g").call(d3.axisBottom(x));
+  x.domain(d3.extent(data, (d) => d["Year"]));
+  y.domain([0, 50]);
+
+  viz.append("g").call(d3.axisBottom(x));
 });
